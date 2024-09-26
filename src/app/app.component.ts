@@ -1,8 +1,9 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, type OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import type { Book } from '../books/book.model';
+import { Store } from '@ngrx/store';
 import { BookService } from '../books/book.service';
+import { BookActions } from '../books/state/book.actions';
 
 @Component({
   selector: 'app-root',
@@ -11,12 +12,15 @@ import { BookService } from '../books/book.service';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'ngrx-app';
-
+  
   bookService = inject(BookService);
-
+  store = inject(Store)
+  
   books$ = this.bookService.getBoooksObservable()
-
-  books: Book[] = [];
+  
+  ngOnInit(): void {
+    this.store.dispatch(BookActions.loadBooks())
+  }
 }
