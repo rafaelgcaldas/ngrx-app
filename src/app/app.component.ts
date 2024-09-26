@@ -4,6 +4,7 @@ import { RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { BookService } from '../books/book.service';
 import { BookActions } from '../books/state/book.actions';
+import { bookSelector } from '../books/state/livro.selectors';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +19,7 @@ export class AppComponent implements OnInit {
   bookService = inject(BookService);
   store = inject(Store)
   
-  books$ = this.bookService.getBoooksObservable()
+  books$ = this.store.select(bookSelector)
   
   ngOnInit(): void {
     this.store.dispatch(BookActions.loadBooks())
