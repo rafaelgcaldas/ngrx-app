@@ -3,7 +3,7 @@ import { Component, inject, type OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { BookService } from '../books/book.service';
-import { BookActions } from '../books/state/book.actions';
+import { bookActions } from '../books/state/book.actions';
 import { bookSelector } from '../books/state/livro.selectors';
 
 @Component({
@@ -22,6 +22,6 @@ export class AppComponent implements OnInit {
   books$ = this.store.select(bookSelector)
   
   ngOnInit(): void {
-    this.store.dispatch(BookActions.loadBooks())
+    this.store.dispatch(bookActions.loadBooks())
   }
 }

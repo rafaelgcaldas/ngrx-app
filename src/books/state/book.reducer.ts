@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import type { Book } from "../book.model";
-import { BookActions } from "./book.actions";
+import { bookActions } from "./book.actions";
 
 enum BookStatus {
   loading = "loading",
@@ -23,22 +23,17 @@ const initialState: BookState = {
 
 export const bookReducer = createReducer (
   initialState,
-  on(BookActions.loadBooks, (currentState) => {
+  on(bookActions.loadBooks, (currentState) => {
     return {
       ...currentState,
+      status: BookStatus.loading,
+    }
+  }),
+  on(bookActions.loadBooksSuccess, (currentState, booksObj) => {
+    return {
+      ...currentState,
+      books: booksObj.books,
       status: BookStatus.success,
-      books: initalBooks
     }
   })
 )
-
-const initalBooks = [
-  {
-    id: 1,
-    name: 'John Smith',
-  },
-  {
-    id: 2,
-    name: 'Jkins Smith',
-  },
-]
