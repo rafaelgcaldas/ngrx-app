@@ -15,5 +15,5 @@ export const appConfig: ApplicationConfig = {
     BookService,
     provideStore(appReducers),
     provideEffects({ getBookEffect })
-]
+  ]
 };
